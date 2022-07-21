@@ -1,3 +1,4 @@
+const ClientError = require('../../exceptions/ClientError');
 const InvariantError = require('../../exceptions/InvariantError');
 
 class UsersHandler {
@@ -6,6 +7,7 @@ class UsersHandler {
     this._validator = validator;
 
     this.postUserHandler = this.postUserHandler.bind(this);
+    this.getUserByIdHandler = this.getUserByIdHandler.bind(this);
   }
 
   async postUserHandler(request, h) {
@@ -56,7 +58,7 @@ class UsersHandler {
         },
       };
     } catch (error) {
-      if (error instanceof InvariantError) {
+      if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
           message: error.message,
