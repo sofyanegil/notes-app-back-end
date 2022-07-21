@@ -1,6 +1,6 @@
 const InvariantError = require('../../exceptions/InvariantError');
 
-class UserHandler {
+class UsersHandler {
   constructor(service, validator) {
     this._service = service;
     this._validator = validator;
@@ -76,4 +76,4 @@ class UserHandler {
   }
 }
 
-module.exports = UserHandler;
+module.exports = UsersHandler;
