@@ -4,9 +4,6 @@ const InvariantError = require('../../exceptions/InvariantError');
 class AuthenticationsService {
   constructor() {
     this._pool = new Pool();
-
-    this.addRefreshToken = this.addRefreshToken.bind(this);
-    this.verifiyRefreshToken = this.verifiyRefreshToken.bind(this);
   }
 
   async addRefreshToken(token) {
@@ -29,6 +26,15 @@ class AuthenticationsService {
     if (!result.rows.length) {
       throw new InvariantError('Refresh token tidak valid');
     }
+  }
+
+  async deleteRefreshToken(token) {
+    const query = {
+      text: 'DELETE FROM authentications WHERE token = $1',
+      values: [token],
+    };
+
+    await this._pool.query(query);
   }
 }
 
